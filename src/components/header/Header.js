@@ -1,14 +1,15 @@
 import React from 'react';
 
-function Header() {
+function Header({handleChange, handleSubmit}) {
     return(
-    <header>
-        <form>
-            <label name="todoInput">Create Todo note here: </label>
-            <input type="text" id="todoInput" placeholder="Type todo here"/>
-            <button type="submit">Submit Todo</button>
-        </form>
-    </header>
+        <header>
+            <form onSubmit={e => handleSubmit(e)}>
+                <label name="todoInput">Create Todo note here: 
+                    <input onChange={e => handleChange(e)} type="text" id="todoInput" placeholder="Type todo here"/>
+                </label>
+                <input type="submit" value="Submit Todo"  />
+            </form>
+        </header>
     )
 }
 export default Header;

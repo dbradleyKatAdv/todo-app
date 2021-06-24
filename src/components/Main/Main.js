@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {  useState  } from 'react';
 
-function Main() {
-    return(
-        <main>
-            <p>This is my main</p>
-        </main>
-    )
+function Main({userTodo}) {
+    if(userTodo != undefined) {
+       return(
+           <p>Data</p>
+       )
+    } else {
+        return(
+            <p>No data</p>
+        )
+    }
 }
 
 export default Main;
