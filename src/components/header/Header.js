@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Header({handleChange, handleSubmit}) {
+function Header({handleChange, handleCreateSubmit}) {
     return(
         <header>
-            <form onSubmit={e => handleSubmit(e)}>
+            <form onSubmit={e => handleCreateSubmit(e)}>
                 <label name="todoInput">Create Todo note here: 
                     <input onChange={e => handleChange(e)} type="text" id="todoInput" placeholder="Type todo here"/>
                 </label>

@@ -46,4 +46,15 @@ getTodos = async (req, res) => {
     }).catch(err => console.log(err))
 }
 
-module.exports = {createItem, getTodos}
+deleteTodo = async (req, res) => {
+    const id = req.params.id;
+    await Todo.deleteOne({id:id}, (err) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+
+        return res.status(200).json({ success: true, data: req.message})
+    }).catch(err => console.log(err))
+}
+
+module.exports = {createItem, getTodos, deleteTodo}
