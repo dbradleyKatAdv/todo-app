@@ -7,7 +7,7 @@ function App() {
   const [userInput, setUserInput] = useState("");
   const [userTodo, setUserTodo] = useState([]);
   const [todoSuccess, setTodoSuccess] = useState("");
-  const [modalState, setModalState] = useState(false);    
+  const [modalState, setModalState] = useState(false);  
 
 
   const fetchData = async () => {
@@ -116,9 +116,7 @@ function App() {
     return fetchData();
   }, [userTodo]);
 
-  const updateModalTrigger = () => {
-    setModalState(!modalState);
-}
+  
 
   const handleChange = (e) => {
     setUserInput(e.target.value);
@@ -138,7 +136,7 @@ function App() {
   const handleUpdateSubmit = (e, id) => {
     e.preventDefault();
     updateTodo(id);
-    setModalState(false);
+    setModalState(!modalState);
   }
 
   return (
@@ -151,8 +149,7 @@ function App() {
         handleUpdateSubmit={handleUpdateSubmit}
         handleChange={handleChange}
         modalState={modalState}
-        setModalState={setModalState}
-        updateModalTrigger={updateModalTrigger} />
+      />
     </div>
   );
 }

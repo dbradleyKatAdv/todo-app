@@ -1,7 +1,7 @@
-.card[data-modal-state='false'] + .update-modal {
+[data-modal-state='false'] .update-modal {
     display: none;
 }
 
-.card[data-modal-state='true'] + .update-modal {
+[data-modal-state='true'] .update-modal {
     display:block;
 }
