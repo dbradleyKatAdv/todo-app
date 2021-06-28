@@ -12,7 +12,7 @@ function UserTodo({ handleChange, handleUpdateSubmit, userTodo, handleDeleteSubm
     }
 
     return (
-        <div data-modal-state={modalState}>
+        <div className="card-wrapper" data-modal-state={modalState}>
             <UpdateModal 
                 handleUpdateSubmit={handleUpdateSubmit}
                 handleChange={handleChange}
@@ -25,6 +25,7 @@ function UserTodo({ handleChange, handleUpdateSubmit, userTodo, handleDeleteSubm
                 handleDeleteSubmit={handleDeleteSubmit}
                 userTodo={userTodo}
             />
+            <div className="modal-overlay"></div>
         </div>
     )
 }

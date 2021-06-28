@@ -6,9 +6,11 @@ function TodoCard({userTodo, handleDeleteSubmit, updateModalTrigger }) {
             return(
                 <Fragment key={key}>
                     <div className="card">
-                        <button onClick={(e) => {handleDeleteSubmit(e)}} value={todo._id}>Delete</button>
-                        <button onClick={(e) => updateModalTrigger(e, todo._id)} >Update</button>
-                        <p>{todo.todo}</p>  
+                        <p>{todo.todo}</p> 
+                        <div className="card-button-container">
+                            <button onClick={(e) => {handleDeleteSubmit(e)}} value={todo._id}>Delete</button>
+                            <button onClick={(e) => updateModalTrigger(e, todo._id)} >Update</button>
+                        </div>
                     </div>
                 </Fragment>
                 
