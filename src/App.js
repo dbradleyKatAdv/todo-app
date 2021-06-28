@@ -7,11 +7,11 @@ function App() {
   const [userInput, setUserInput] = useState("");
   const [userTodo, setUserTodo] = useState([]);
   const [todoSuccess, setTodoSuccess] = useState("");
-  const [todoDelete, setTodoDelete] = useState("");
+  const [modalState, setModalState] = useState(false);    
+
 
   const fetchData = async () => {
     try {
-      console.log("firingData")
         const response = await fetch('http://localhost:3001/api', {
           method: "GET",
           "Content-Type": "application/x-www-form-urlencoded"
@@ -24,7 +24,7 @@ function App() {
         };
 
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
 
@@ -51,7 +51,7 @@ function App() {
       }
       
     } catch(err) {
-      throw new Error(err, "here");
+      throw new Error(err, "Here");
     }
   }
 
@@ -78,35 +78,81 @@ function App() {
         } else {
           throw new Error('Issue with API')
         }
-
       } catch(err) {
         throw new Error(err.message);
       }
   }
+
+  const updateTodo = async (todoId) => {
+    try {
+      var headers = new Headers();
+      headers.append("Content-Type", "application/x-www-form-urlencoded");
+
+      var urlencoded = new URLSearchParams();
+      urlencoded.append("todo", `${userInput}`);
+
+      var requestOptions = {
+          method: 'PUT',
+          headers: headers,
+          body: urlencoded,
+          redirect: 'follow'
+      };
+
+      const response = await fetch(`http://localhost:3001/api/${todoId}`, requestOptions);
+      if(!response.ok) return console.log("error", response.message);
+      const data = await response.json();
+
+      if(data.success == true) {
+        fetchData();
+      }
+      
+    } catch(err) {
+      throw new Error(err, "Here");
+    }
+  }
+
 // fetches data on component load, then everytime userTodo updates (on form submit), will refetch data
   useEffect(() => {
-    fetchData();
-  }, ([userTodo]))
+    return fetchData();
+  }, [userTodo]);
+
+  const updateModalTrigger = () => {
+    setModalState(!modalState);
+}
 
   const handleChange = (e) => {
     setUserInput(e.target.value);
   }
 
   const handleCreateSubmit = (e) => {
-     e.preventDefault();
-     sendTodo();
+      e.preventDefault();
+      sendTodo();
+      setUserInput();
   }
 
   const handleDeleteSubmit = (e) => {
-    console.log(e.target.value)
+    e.preventDefault();
     deleteTodo(e.target.value);
+  }
+
+  const handleUpdateSubmit = (e, id) => {
+    e.preventDefault();
+    updateTodo(id);
+    setModalState(false);
   }
 
   return (
     <div className="App">
     {/* use success state of api to show different views */}
       <Header handleChange={handleChange} handleCreateSubmit={handleCreateSubmit}/>
-      <Main userTodo={userTodo} todoSuccess={todoSuccess} handleDeleteSubmit={handleDeleteSubmit}/>
+      <Main userTodo={userTodo}
+        todoSuccess={todoSuccess}
+        handleDeleteSubmit={handleDeleteSubmit}
+        handleUpdateSubmit={handleUpdateSubmit}
+        handleChange={handleChange}
+        modalState={modalState}
+        setModalState={setModalState}
+        updateModalTrigger={updateModalTrigger} />
     </div>
   );
 }

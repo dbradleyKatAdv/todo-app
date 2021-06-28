@@ -48,7 +48,7 @@ getTodos = async (req, res) => {
 
 deleteTodo = async (req, res) => {
     const id = req.params.id;
-    await Todo.deleteOne(({_id: id}),   (err) => {
+    await Todo.deleteOne(({_id: id}), (err) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
@@ -57,4 +57,24 @@ deleteTodo = async (req, res) => {
     }).catch(err => console.log(err))
 }
 
-module.exports = {createItem, getTodos, deleteTodo}
+
+
+updateTodo = async (req, res) => {
+    const id = req.params.id;
+    const updatedTodo = req.body.todo;
+    
+    await Todo.findById(id, function ( err, todo ){
+        if(err) {
+            return res.status(400).json({success:false, error:err})
+        }
+        todo.todo = updatedTodo;
+        todo.save(function ( err, todo ){
+            if(err) {
+                return res.status(400).json({success: false, error: err})
+            }
+            return res.status(200).json({ success: true, data: req.message});
+        });
+    });
+}
+
+module.exports = {createItem, getTodos, deleteTodo, updateTodo}
