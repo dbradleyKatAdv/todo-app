@@ -2,9 +2,20 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# Initial Setup
+
+Run `npm i` in project root.\
+Requires the use of two terminal windows for both front and back end processes:
+1. npm run server
+2. npm run start    
+
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `npm run server`
+
+Runs the server so that Database connection is functional\
 
 ### `npm start`
 

@@ -116,8 +116,6 @@ function App() {
     return fetchData();
   }, [userTodo]);
 
-  
-
   const handleChange = (e) => {
     setUserInput(e.target.value);
   }

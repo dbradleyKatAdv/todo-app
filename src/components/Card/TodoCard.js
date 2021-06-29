@@ -6,7 +6,9 @@ function TodoCard({userTodo, handleDeleteSubmit, updateModalTrigger }) {
             return(
                 <Fragment key={key}>
                     <div className="card">
-                        <p>{todo.todo}</p> 
+                        <div className="card-text-box">
+                            <p>{todo.todo}</p> 
+                        </div>
                         <div className="card-button-container">
                             <button onClick={(e) => {handleDeleteSubmit(e)}} value={todo._id}>Delete</button>
                             <button onClick={(e) => updateModalTrigger(e, todo._id)} >Update</button>
