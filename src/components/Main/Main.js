@@ -1,7 +1,7 @@
 import React from 'react';
 import UserTodo from "./../UserTodo/UserTodo.js";
 
-function Main({userTodo, handleDeleteSubmit, handleUpdateSubmit, handleChange, modalState}) {
+function Main({ userTodo, handleDeleteSubmit, handleChange }) {
 
     if(userTodo == null) {
         <p>No data</p>
@@ -14,9 +14,7 @@ function Main({userTodo, handleDeleteSubmit, handleUpdateSubmit, handleChange, m
             <UserTodo
                 userTodo={userTodo}
                 handleDeleteSubmit={handleDeleteSubmit}
-                handleUpdateSubmit={handleUpdateSubmit}
                 handleChange={handleChange}
-                modalState={modalState}
             />
         )
     }

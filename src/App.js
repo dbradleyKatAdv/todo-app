@@ -7,7 +7,7 @@ function App() {
   const [userInput, setUserInput] = useState("");
   const [userTodo, setUserTodo] = useState([]);
   const [todoSuccess, setTodoSuccess] = useState("");
-  const [modalState, setModalState] = useState(false);  
+  const [textBoxText, setTextBoxText] = useState("");
 
 
   const fetchData = async () => {
@@ -88,8 +88,13 @@ function App() {
       var headers = new Headers();
       headers.append("Content-Type", "application/x-www-form-urlencoded");
 
-      var urlencoded = new URLSearchParams();
-      urlencoded.append("todo", `${userInput}`);
+ 
+      if(userInput != undefined) {
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("todo", `${userInput}`);
+      } else {
+        console.log("need new value")
+      }
 
       var requestOptions = {
           method: 'PUT',
@@ -123,7 +128,11 @@ function App() {
   const handleCreateSubmit = (e) => {
       e.preventDefault();
       sendTodo();
-      setUserInput();
+      resetInput();
+  }
+
+  const resetInput = () => {
+    setUserInput("");
   }
 
   const handleDeleteSubmit = (e) => {
@@ -131,22 +140,15 @@ function App() {
     deleteTodo(e.target.value);
   }
 
-  const handleUpdateSubmit = (e, id) => {
-    e.preventDefault();
-    updateTodo(id);
-    setModalState(!modalState);
-  }
 
   return (
     <div className="App">
     {/* use success state of api to show different views */}
-      <Header handleChange={handleChange} handleCreateSubmit={handleCreateSubmit}/>
+      <Header handleChange={handleChange} handleCreateSubmit={handleCreateSubmit} userInput={userInput}/>
       <Main userTodo={userTodo}
         todoSuccess={todoSuccess}
         handleDeleteSubmit={handleDeleteSubmit}
-        handleUpdateSubmit={handleUpdateSubmit}
         handleChange={handleChange}
-        modalState={modalState}
       />
     </div>
   );

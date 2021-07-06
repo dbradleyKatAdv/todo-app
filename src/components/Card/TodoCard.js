@@ -1,21 +1,16 @@
-import React, {Fragment} from "react";
+import React, { Fragment } from "react";
+import TextBox from "./TextBox.js";
 
-function TodoCard({userTodo, handleDeleteSubmit, updateModalTrigger }) {
+function TodoCard({ userTodo }) {
+
     return (
         userTodo.map((todo, key) => {
             return(
                 <Fragment key={key}>
                     <div className="card">
-                        <div className="card-text-box">
-                            <p>{todo.todo}</p> 
-                        </div>
-                        <div className="card-button-container">
-                            <button onClick={(e) => {handleDeleteSubmit(e)}} value={todo._id}>Delete</button>
-                            <button onClick={(e) => updateModalTrigger(e, todo._id)} >Update</button>
-                        </div>
+                        <TextBox todo={todo} />
                     </div>
                 </Fragment>
-                
             ) 
         })
     )

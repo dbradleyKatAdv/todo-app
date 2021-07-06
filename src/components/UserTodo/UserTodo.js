@@ -1,29 +1,29 @@
 import React, { useState } from "react";
-import UpdateModal from "./../Modal/UpdateModal.js";
 import TodoCard from "./../Card/TodoCard.js";
 
 // contains component for all user todos
-function UserTodo({ handleChange, handleUpdateSubmit, userTodo, handleDeleteSubmit, setModalState, modalState}) {
+function UserTodo({ handleChange, handleUpdateSubmit, userTodo, handleDeleteSubmit, handleTextBoxInput, textBoxText }) {
     const [activeTodo, setActiveTodo] = useState("");
+    const [textBoxState, setTextBoxState] = useState(false);
     
-    const updateModalTrigger = (e, id) => {
+    const updateButtonState = (e, id) => {
         setActiveTodo(id);
-        handleUpdateSubmit(e, id);
+        // handleUpdateSubmit(e, id);
+        setTextBoxState(!textBoxState);
     }
 
+
     return (
-        <div className="card-wrapper" data-modal-state={modalState}>
-            <UpdateModal 
-                handleUpdateSubmit={handleUpdateSubmit}
-                handleChange={handleChange}
-                todoId={activeTodo}
-            />
+        <div className="card-wrapper">
             <TodoCard
                 handleUpdateSubmit={handleUpdateSubmit}
-                setModalState={setModalState}
-                updateModalTrigger={updateModalTrigger}
+                updateButtonState={updateButtonState}
                 handleDeleteSubmit={handleDeleteSubmit}
                 userTodo={userTodo}
+                textBoxState={textBoxState}
+                setTextBoxState={setTextBoxState}
+                handleTextBoxInput={handleTextBoxInput}
+                textBoxText={textBoxText}
             />
             <div className="modal-overlay"></div>
         </div>
