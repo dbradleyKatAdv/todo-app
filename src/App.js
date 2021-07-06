@@ -7,7 +7,6 @@ function App() {
   const [userInput, setUserInput] = useState("");
   const [userTodo, setUserTodo] = useState([]);
   const [todoSuccess, setTodoSuccess] = useState("");
-  const [textBoxText, setTextBoxText] = useState("");
 
 
   const fetchData = async () => {
@@ -55,66 +54,8 @@ function App() {
     }
   }
 
-  const deleteTodo = async (todoId) => {
-      try {
-        var headers = new Headers();
-        headers.append("Content-Type", "application/x-www-form-urlencoded");
+
   
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("todo", `${userInput}`);
-  
-        var requestOptions = {
-            method: 'DELETE',
-            headers: headers,
-            body: urlencoded,
-            redirect: 'follow'
-        };
-
-        const response = await fetch(`http://localhost:3001/api/${todoId}`, requestOptions)
-        if(!response.ok) throw new Error(response.message);
-        const data = await response.json();
-        if(data.success == true) {
-          console.log(data)
-        } else {
-          throw new Error('Issue with API')
-        }
-      } catch(err) {
-        throw new Error(err.message);
-      }
-  }
-
-  const updateTodo = async (todoId) => {
-    try {
-      var headers = new Headers();
-      headers.append("Content-Type", "application/x-www-form-urlencoded");
-
- 
-      if(userInput != undefined) {
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("todo", `${userInput}`);
-      } else {
-        console.log("need new value")
-      }
-
-      var requestOptions = {
-          method: 'PUT',
-          headers: headers,
-          body: urlencoded,
-          redirect: 'follow'
-      };
-
-      const response = await fetch(`http://localhost:3001/api/${todoId}`, requestOptions);
-      if(!response.ok) return console.log("error", response.message);
-      const data = await response.json();
-
-      if(data.success == true) {
-        fetchData();
-      }
-      
-    } catch(err) {
-      throw new Error(err, "Here");
-    }
-  }
 
 // fetches data on component load, then everytime userTodo updates (on form submit), will refetch data
   useEffect(() => {
@@ -135,10 +76,6 @@ function App() {
     setUserInput("");
   }
 
-  const handleDeleteSubmit = (e) => {
-    e.preventDefault();
-    deleteTodo(e.target.value);
-  }
 
 
   return (
@@ -146,9 +83,9 @@ function App() {
     {/* use success state of api to show different views */}
       <Header handleChange={handleChange} handleCreateSubmit={handleCreateSubmit} userInput={userInput}/>
       <Main userTodo={userTodo}
-        todoSuccess={todoSuccess}
-        handleDeleteSubmit={handleDeleteSubmit}
         handleChange={handleChange}
+        fetchData={fetchData}
+        userInput={userInput}
       />
     </div>
   );

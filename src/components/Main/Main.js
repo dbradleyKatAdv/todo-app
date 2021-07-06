@@ -1,7 +1,7 @@
 import React from 'react';
 import UserTodo from "./../UserTodo/UserTodo.js";
 
-function Main({ userTodo, handleDeleteSubmit, handleChange }) {
+function Main({ userTodo, handleChange, fetchData, userInput }) {
 
     if(userTodo == null) {
         <p>No data</p>
@@ -13,8 +13,9 @@ function Main({ userTodo, handleDeleteSubmit, handleChange }) {
         return(
             <UserTodo
                 userTodo={userTodo}
-                handleDeleteSubmit={handleDeleteSubmit}
                 handleChange={handleChange}
+                fetchData={fetchData}
+                userInput={userInput}
             />
         )
     }

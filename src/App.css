@@ -1,57 +1,30 @@
 .App {
     position: relative;
     margin-top:30px;
-}
-
-[data-modal-state='false'] .update-modal {
-    display: none;
-}
-
-[data-modal-state='true'] .update-modal {
-    display:block;
-}
-
-.update-modal {
-    position: fixed;
-    background: white;
-    outline: 1px solid grey;
-    min-height: 200px;   
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-overlay {
-    background-color: rgba(255,255,255, 0.3);
-    width:100%;
+    max-width:1440px;
     height:100%;
-    position: fixed;
-    top:0;
-    display:none;
+    margin:0 auto;
 }
 
 .card-wrapper {
     display:flex;
     flex-wrap: wrap;
-    height: 100vh;
     overflow: scroll;
     margin-top:50px;
 }
 
 .card {
-    width:calc(50% - 40px);
-    min-height: 150px;
-    outline: 1px solid grey;
+    margin:10px;
+    box-sizing: border-box;
+    width:calc(50% - 20px);
+    height: 200px;
+    border: 1px solid grey;
     display:flex;
     flex-direction:column;
     align-items: center; 
     justify-content: space-between;
     padding:20px;
-
-
 }
-
-
 
 .card-button-container {
     width: 100%;
@@ -94,7 +67,7 @@
 @media only screen and (max-width: 800px) {
     .card {
         width:100%;
-        min-height:100px;
+        height: auto;
         flex-direction: column;
     }
 
@@ -139,7 +112,6 @@
 
 
 header {
-    outline: 1px solid red;
     position:fixed; 
     top:0;
     padding:10px; 
@@ -150,4 +122,8 @@ header {
     display:flex;
     justify-content: flex-start;
     align-items: center;
+    max-width:1440px;
+    width:100%;
+    margin:0 auto;
+    outline:1px solid red;
 }

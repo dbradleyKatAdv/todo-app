@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
 
-function ToggleButton({todo, setTextButtonActive, textButtonActive, handleDeleteSubmit}) {
+function ToggleButton({todo, setTextButtonActive, textButtonActive, handleDeleteSubmit, updateTodo}) {
 
     const toggleButtonHandler = (e) => {
-        e.preventDefault();
         setTextButtonActive(!textButtonActive)
     }
 
@@ -12,8 +11,11 @@ function ToggleButton({todo, setTextButtonActive, textButtonActive, handleDelete
             <button onClick={(e) => {handleDeleteSubmit(e)}} value={todo._id}>Delete</button>
             {
                 textButtonActive ?
-                <button name="done" onClick={e => toggleButtonHandler(e)} >Done</button> :
-                <button name="update" onClick={e => toggleButtonHandler(e)}>Update</button>
+                <button name="done" value={todo._id} onClick={e => {
+                    toggleButtonHandler(e);
+                    updateTodo(e.target.value)
+                }} >Done</button> :
+                <button name="update" value={todo._id} onClick={e => toggleButtonHandler(e.target.value)}>Update</button>
             }
         </div>
     )
