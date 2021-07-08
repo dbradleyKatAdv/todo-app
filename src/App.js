@@ -11,6 +11,7 @@ function App() {
 
   const fetchData = async () => {
     try {
+
         const response = await fetch('http://localhost:3001/api/', {
           method: "GET",
           "Content-Type": "application/x-www-form-urlencoded"
@@ -23,7 +24,7 @@ function App() {
         };
 
     } catch (err) {
-      console.log(err);
+      console.log(err, "here");
     }
   }
 
@@ -53,9 +54,6 @@ function App() {
       throw new Error(err, "Here");
     }
   }
-
-
-  
 
 // fetches data on component load, then everytime userTodo updates (on form submit), will refetch data
   useEffect(() => {
