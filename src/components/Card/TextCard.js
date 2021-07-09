@@ -1,7 +1,7 @@
 import React, {Fragment, useState} from "react";
 import ToggleButton from "./ToggleButton.js";
 
-function TextBox({ todo }) {
+function TextCard({ todo, key }) {
     const [textButtonActive, setTextButtonActive] = useState(false);
     const [userTextBoxInput, setUserTextBoxInput] = useState(todo.todo)
 
@@ -77,7 +77,7 @@ function TextBox({ todo }) {
   }
 
     return (
-        <Fragment>
+        <div className="card" key={key}>
             {
                 textButtonActive ?
                 <input value={userTextBoxInput} onChange={e => handleChangeTextBox(e)} className="card-text-box" /> :
@@ -88,8 +88,8 @@ function TextBox({ todo }) {
                 setTextButtonActive={setTextButtonActive}
                 updateTodo={updateTodo}
                 handleDeleteSubmit={handleDeleteSubmit}/>
-        </Fragment>
+        </div>
     )
 }
 
-export default TextBox;
+export default TextCard;

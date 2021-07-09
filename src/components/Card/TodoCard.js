@@ -1,21 +1,18 @@
-import React, { Fragment } from "react";
-import TextBox from "./TextBox.js";
+import React from "react";
+import TextCard from "./TextCard.js";
 
-function TodoCard({ userTodo, fetchData, userInput }) {
-    
+function TodoCard({ userTodo, userInput }) {
+
     return (
-        userTodo.map((todo, key) => {
-            return(
-                <Fragment key={key}>
-                    <div className="card">
-                        <TextBox 
-                        todo={todo}
-                        userInput={userInput} 
-                        />
-                    </div>
-                </Fragment>
-            ) 
-        })
+        <div className="card-wrapper">
+            {userTodo.map((todo, key) => {
+               return( <TextCard
+                    todo={todo}
+                    userInput={userInput}
+                    key={key}
+                />)
+            })}
+        </div>
     )
 }
 

@@ -1,25 +1,22 @@
 import React from 'react';
-import UserTodo from "./../UserTodo/UserTodo.js";
+import UserTodoPage from "./../UserTodoPage/UserTodoPage.js";
+import Signup from "../SignupPage/SignupPage.js";
 
-function Main({ userTodo, handleChange, fetchData, userInput }) {
-
-    if(userTodo == null) {
-        <p>No data</p>
-    } else if(userTodo.length == 0) {
-    return(
-            <p>Loading</p>
-        )    
-    } else if (userTodo.length > 0) {
+function Main({ userTodo, handleChange, fetchData, userInput, userSignedIn }) {
+    if(!userSignedIn) {
         return(
-            <UserTodo
-                userTodo={userTodo}
-                handleChange={handleChange}
-                fetchData={fetchData}
-                userInput={userInput}
+            <Signup />
+        )
+    } else if (userSignedIn) {
+        return (
+            <UserTodoPage
+            userTodo={userTodo}
+            handleChange={handleChange}
+            fetchData={fetchData}
+            userInput={userInput}
             />
         )
     }
-
 }
 
 export default Main;

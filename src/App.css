@@ -6,6 +6,10 @@
     margin:0 auto;
 }
 
+.errorMessage {
+    margin-top: 200px;
+}
+
 .card-wrapper {
     display:flex;
     flex-wrap: wrap;
