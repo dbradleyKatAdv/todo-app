@@ -1,6 +1,6 @@
 import React from 'react';
 import UserTodoPage from "./../UserTodoPage/UserTodoPage.js";
-import Signup from "./../Signup/Signup.js";
+import Signup from "../SignupPage/SignupPage.js";
 
 function Main({ userTodo, handleChange, fetchData, userInput, userSignedIn }) {
     if(!userSignedIn) {
