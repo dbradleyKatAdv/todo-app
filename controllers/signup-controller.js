@@ -1,4 +1,4 @@
-const User = require('../models/user-model');
+const NewUser = require('../models/signup-model');
 
 createUser = async (req, res) => {
     const body = await req.body;
@@ -9,7 +9,7 @@ createUser = async (req, res) => {
                 error: 'You must provide your information'
             });
         };
-        const user = new User(body);
+        const user = new NewUser(body);
 
         if(!user) {
             return res.status(400).json({ success: false, error: err});

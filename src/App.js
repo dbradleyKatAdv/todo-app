@@ -7,6 +7,7 @@ function App() {
   const [userInput, setUserInput] = useState("");
   const [userTodo, setUserTodo] = useState([]);
   const [todoSuccess, setTodoSuccess] = useState("");
+  const [userSignedIn, setUserSignedIn] = useState(false);
 
 
   const fetchData = async () => {
@@ -17,12 +18,16 @@ function App() {
           "Content-Type": "application/x-www-form-urlencoded"
         })
         if(!response.ok) {
-          return setUserTodo(null);
+          const data = await response.json();
+          if(!data.success) {
+            return setUserTodo([])
+          } else {
+            return setUserTodo(null);
+          }
         } else {
           const data = await response.json();
           return setUserTodo(data.data);
         };
-
     } catch (err) {
       console.log(err, "here");
     }
@@ -74,8 +79,6 @@ function App() {
     setUserInput("");
   }
 
-
-
   return (
     <div className="App">
     {/* use success state of api to show different views */}
@@ -84,6 +87,7 @@ function App() {
         handleChange={handleChange}
         fetchData={fetchData}
         userInput={userInput}
+        userSignedIn={userSignedIn}
       />
     </div>
   );
