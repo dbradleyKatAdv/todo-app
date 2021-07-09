@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TodoCard from "./../Card/TodoCard.js";
-import NoData from "./../Main/NoData.js";
+import NoData from "./NoData.js";
 
-function UserTodoPage({ userTodo, handleChange, fetchData, userInput}) {
-    if (userTodo == null) {
+function UserTodoPage({ userTodo, handleChange, fetchData, userInput, getTodoSuccess }) {
+
+    useEffect(() => {
+        return fetchData();
+    }, [userTodo]);
+    
+    if (!getTodoSuccess) {
         return (
             <p className="errorMessage">Issue with API</p>
         )
-    } else if (userTodo.length == 0) {
+    } else if (userTodo.length === 0) {
         return (
             <NoData />
         )

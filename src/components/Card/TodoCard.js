@@ -6,11 +6,13 @@ function TodoCard({ userTodo, userInput }) {
     return (
         <div className="card-wrapper">
             {userTodo.map((todo, key) => {
-               return( <TextCard
-                    todo={todo}
-                    userInput={userInput}
-                    key={key}
-                />)
+               return(
+                    <TextCard
+                        todo={todo}
+                        userInput={userInput}
+                        mapkey={key}
+                    />
+                )
             })}
         </div>
     )

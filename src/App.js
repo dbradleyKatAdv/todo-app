@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Main from './components/Main/Main';
-import Header from './components/Header/Header';
 
 function App() {
   const [userInput, setUserInput] = useState("");
   const [userTodo, setUserTodo] = useState([]);
-  const [todoSuccess, setTodoSuccess] = useState("");
+  const [sendTodoSuccess, setSendTodoSuccess] = useState("");
+  const [getTodoSuccess, setGetTodoSuccess] = useState("");
   const [userSignedIn, setUserSignedIn] = useState(false);
-
 
   const fetchData = async () => {
     try {
@@ -16,20 +15,30 @@ function App() {
         const response = await fetch('http://localhost:3001/api/', {
           method: "GET",
           "Content-Type": "application/x-www-form-urlencoded"
-        })
+        });
+
         if(!response.ok) {
           const data = await response.json();
+
           if(!data.success) {
-            return setUserTodo([])
+            setGetTodoSuccess(false);
+            return setUserTodo([]);
           } else {
+            setGetTodoSuccess(true)
             return setUserTodo(null);
           }
+
         } else {
           const data = await response.json();
+          setGetTodoSuccess(true);
           return setUserTodo(data.data);
+
         };
     } catch (err) {
+
+      setGetTodoSuccess(false);
       console.log(err, "here");
+
     }
   }
 
@@ -49,21 +58,19 @@ function App() {
       };
 
       const response = await fetch("http://localhost:3001/api/", requestOptions);
-      if(!response.ok) return;
+      if(!response.ok) return setSendTodoSuccess(false);
       const data = await response.json();
-      if(data.success == true) {
-        setTodoSuccess(true);
+      if(data.success === true) {
+        return setSendTodoSuccess(true);
+      } else {
+        return setSendTodoSuccess(false)
       }
-      
     } catch(err) {
-      throw new Error(err, "Here");
+      return setSendTodoSuccess(false);
     }
   }
 
 // fetches data on component load, then everytime userTodo updates (on form submit), will refetch data
-  useEffect(() => {
-    return fetchData();
-  }, [userTodo]);
 
   const handleChange = (e) => {
     setUserInput(e.target.value);
@@ -82,12 +89,13 @@ function App() {
   return (
     <div className="App">
     {/* use success state of api to show different views */}
-      <Header handleChange={handleChange} handleCreateSubmit={handleCreateSubmit} userInput={userInput}/>
       <Main userTodo={userTodo}
         handleChange={handleChange}
         fetchData={fetchData}
         userInput={userInput}
         userSignedIn={userSignedIn}
+        handleCreateSubmit={handleCreateSubmit}
+        getTodoSuccess={getTodoSuccess}
       />
     </div>
   );

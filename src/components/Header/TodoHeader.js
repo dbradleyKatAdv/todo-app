@@ -1,7 +1,7 @@
 import React from 'react';
-import AddTodoForm from "./../Form/AddTodoForm.js";
+import AddTodoForm from "../Form/AddTodoForm.js";
 
-function Header({handleChange, handleCreateSubmit, userInput}) {
+function TodoHeader({handleChange, handleCreateSubmit, userInput}) {
     return(
         <header className="header">
             <AddTodoForm
@@ -12,4 +12,4 @@ function Header({handleChange, handleCreateSubmit, userInput}) {
         </header>
     )
 }
-export default Header;
+export default TodoHeader;

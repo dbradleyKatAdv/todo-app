@@ -1,7 +1,7 @@
-import React, {Fragment, useState} from "react";
+import React, { useState } from "react";
 import ToggleButton from "./ToggleButton.js";
 
-function TextCard({ todo, key }) {
+function TextCard({ todo, mapkey }) {
     const [textButtonActive, setTextButtonActive] = useState(false);
     const [userTextBoxInput, setUserTextBoxInput] = useState(todo.todo)
 
@@ -11,7 +11,7 @@ function TextCard({ todo, key }) {
         headers.append("Content-Type", "application/x-www-form-urlencoded");
 
     
-        if(userTextBoxInput != undefined) {
+        if(userTextBoxInput !== undefined) {
             var urlencoded = new URLSearchParams();
             urlencoded.append("todo", `${userTextBoxInput}`);
         } else {
@@ -29,6 +29,7 @@ function TextCard({ todo, key }) {
         if(!response.ok) return 
         console.log("error", response.message);
         const data = await response.json();
+        return data;
         // can throw a success message here        
         
         } catch(err) {
@@ -55,7 +56,7 @@ function TextCard({ todo, key }) {
         const response = await fetch(`http://localhost:3001/api/${todoId}`, requestOptions)
         if(!response.ok) throw new Error(response.message);
         const data = await response.json();
-        if(data.success == true) {
+        if(data.success === true) {
             console.log(data)
         } else {
             throw new Error('Issue with API')
@@ -75,9 +76,8 @@ function TextCard({ todo, key }) {
     e.preventDefault();
     deleteTodo(e.target.value);
   }
-
     return (
-        <div className="card" key={key}>
+        <div className="card" key={mapkey}>
             {
                 textButtonActive ?
                 <input value={userTextBoxInput} onChange={e => handleChangeTextBox(e)} className="card-text-box" /> :

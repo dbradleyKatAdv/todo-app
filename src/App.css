@@ -6,7 +6,8 @@
     margin:0 auto;
 }
 
-.errorMessage {
+.errorMessage,
+.nodata {
     margin-top: 200px;
 }
 

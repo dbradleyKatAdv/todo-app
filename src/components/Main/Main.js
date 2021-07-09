@@ -1,20 +1,34 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import UserTodoPage from "./../UserTodoPage/UserTodoPage.js";
-import Signup from "../SignupPage/SignupPage.js";
+import SignupPage from "../SignupPage/SignupPage.js";
+import TodoHeader from "../Header/TodoHeader.js";
 
-function Main({ userTodo, handleChange, fetchData, userInput, userSignedIn }) {
+function Main({ userTodo, handleChange, fetchData, userInput, userSignedIn, handleCreateSubmit, getTodoSuccess }) {
+
+
+
     if(!userSignedIn) {
         return(
-            <Signup />
+            <SignupPage />
         )
     } else if (userSignedIn) {
         return (
-            <UserTodoPage
-            userTodo={userTodo}
-            handleChange={handleChange}
-            fetchData={fetchData}
-            userInput={userInput}
-            />
+            <Fragment>
+                <TodoHeader 
+                    handleChange={handleChange}
+                    handleCreateSubmit={handleCreateSubmit} 
+                    userInput={userInput}
+                />
+                <UserTodoPage
+                    userTodo={userTodo}
+                    handleChange={handleChange}
+                    fetchData={fetchData}
+                    userInput={userInput}
+                    getTodoSuccess={getTodoSuccess}
+                />
+
+            </Fragment>
+           
         )
     }
 }
