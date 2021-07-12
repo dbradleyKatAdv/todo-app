@@ -27,10 +27,10 @@ function SignupPage () {
             };
 
             const response = await fetch("http://localhost:3001/api/users", requestOptions);
-            console.log(response)
+
             if (!response.ok) return setCreateUserSuccess(false);
+
             const data = await response.json();
-            console.log(data)
             if (data.success === true) {
                 return setCreateUserSuccess(true);
             } else {
@@ -63,6 +63,7 @@ function SignupPage () {
     }
     
     return(
+        
         <Fragment>
             <SignupForm 
                 handleFirstNameChange={handleFirstNameChange}

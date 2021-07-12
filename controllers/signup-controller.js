@@ -1,4 +1,5 @@
 const NewUser = require('../models/signup-model');
+const bcrypt = require("bcrypt");
 
 createUser = async (req, res) => {
     const body = await req.body;
@@ -9,11 +10,14 @@ createUser = async (req, res) => {
                 error: 'You must provide your information'
             });
         };
-        const user = new NewUser(body);
+        const newUser = new NewUser(body);        
 
-        if(!user) {
+        if(!newUser) {
             return res.status(400).json({ success: false, error: err});
         }
+
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(user.password, salt);
 
         user.save().then(() => {
             return res.status(200).json({

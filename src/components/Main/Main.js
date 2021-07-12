@@ -1,14 +1,14 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, setState } from 'react';
 import UserTodoPage from "./../UserTodoPage/UserTodoPage.js";
 import SignupPage from "../SignupPage/SignupPage.js";
+import LoginPage from "../LoginPage/LoginPage.js";
 import TodoHeader from "../Header/TodoHeader.js";
 
 function Main({ userTodo, handleChange, fetchData, userInput, userSignedIn, handleCreateSubmit, getTodoSuccess }) {
 
-
-
     if(!userSignedIn) {
         return(
+            
             <SignupPage />
         )
     } else if (userSignedIn) {
