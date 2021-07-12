@@ -20,6 +20,7 @@ createUser = async (req, res) => {
                 success: true,
                 firstName: user.firstName,
                 lastName: user.lastName,
+                email: user.email,
                 id: user._id
             })
         })
@@ -30,4 +31,6 @@ createUser = async (req, res) => {
         })
     }
 }
+
+module.exports = {createUser}
 

@@ -6,25 +6,60 @@ function SignupPage () {
     const [lastNameInput, setLastNameInput] = useState("");
     const [emailInput, setEmailInput] = useState("");
     const [passwordInput, setPasswordInput] = useState("");
+    const [createUserSuccess, setCreateUserSuccess] = useState("");
+
+    const createNewUser = async () => {
+        try {
+            var headers = new Headers();
+            headers.append("Content-Type", "application/x-www-form-urlencoded");
+
+            var urlencoded = new URLSearchParams();
+            urlencoded.append("firstName", `${firstNameInput}`);
+            urlencoded.append("lastName", `${lastNameInput}`);
+            urlencoded.append("email", `${emailInput}`);
+            urlencoded.append("password", `${passwordInput}`);
+
+            var requestOptions = {
+                method: 'POST',
+                headers: headers,
+                body: urlencoded,
+                redirect: 'follow'
+            };
+
+            const response = await fetch("http://localhost:3001/api/users", requestOptions);
+            console.log(response)
+            if (!response.ok) return setCreateUserSuccess(false);
+            const data = await response.json();
+            console.log(data)
+            if (data.success === true) {
+                return setCreateUserSuccess(true);
+            } else {
+                return setCreateUserSuccess(false)
+            }
+        } catch (err) {
+            return setCreateUserSuccess(false);
+        }
+    }
 
     const handleCreateUserSubmit = (e) => {
-        console.log("handleCreateUserSubmit firing")
+        e.preventDefault();
+        createNewUser();
     }
 
-    const handleFirstNameChange = (e) => {
-        console.log(e.target.value);
+    const handleFirstNameChange = (inputValue) => {
+        setFirstNameInput(inputValue);
     }
 
-    const handleLastNameChange = (e) => {
-        console.log(e.target.value);
+    const handleLastNameChange = (inputValue) => {
+        setLastNameInput(inputValue);
     }
 
-    const handleEmailChange = (e) => {
-        console.log(e.target.value);
+    const handleEmailChange = (inputValue) => {
+        setEmailInput(inputValue);
     }
 
-    const handlePasswordChange = (e) => {
-        console.log(e.target.value);
+    const handlePasswordChange = (inputValue) => {
+        setPasswordInput(inputValue);
     }
     
     return(
