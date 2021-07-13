@@ -25,7 +25,7 @@ function TextCard({ todo, mapkey }) {
             redirect: 'follow'
         };
 
-        const response = await fetch(`http://localhost:3001/api/${todoId}`, requestOptions);
+        const response = await fetch(`http://localhost:3001/api/todos/${todoId}`, requestOptions);
         if(!response.ok) return 
         console.log("error", response.message);
         const data = await response.json();
@@ -53,7 +53,7 @@ function TextCard({ todo, mapkey }) {
             redirect: 'follow'
         };
 
-        const response = await fetch(`http://localhost:3001/api/${todoId}`, requestOptions)
+        const response = await fetch(`http://localhost:3001/api/todos/${todoId}`, requestOptions)
         if(!response.ok) throw new Error(response.message);
         const data = await response.json();
         if(data.success === true) {

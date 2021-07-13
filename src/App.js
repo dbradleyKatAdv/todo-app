@@ -22,8 +22,11 @@ function App() {
     {/* use success state of api to show different views */}
     <Router>
       <Switch>
-          <Route path="/">
+          <Route exact path="/">
             <LoginPage />
+          </Route>
+          <Route path="/users">
+            <Dashboard />
           </Route>
           <Route path="/signup">
             <SignupPage />

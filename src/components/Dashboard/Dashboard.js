@@ -12,7 +12,7 @@ function UserTodoPage() {
     const fetchData = async () => {
         try {
 
-            const response = await fetch('http://localhost:3001/api/', {
+            const response = await fetch('http://localhost:3001/api/todos', {
                 method: "GET",
                 "Content-Type": "application/x-www-form-urlencoded"
             });
@@ -27,18 +27,13 @@ function UserTodoPage() {
                     setGetTodoSuccess(true)
                     return setUserTodo(null);
                 }
-
             } else {
                 const data = await response.json();
                 setGetTodoSuccess(true);
                 return setUserTodo(data.data);
-
             };
         } catch (err) {
-
             setGetTodoSuccess(false);
-            console.log(err, "here");
-
         }
     }
 
@@ -57,7 +52,7 @@ function UserTodoPage() {
                 redirect: 'follow'
             };
 
-            const response = await fetch("http://localhost:3001/api/", requestOptions);
+            const response = await fetch("http://localhost:3001/api/todos", requestOptions);
             if (!response.ok) return setSendTodoSuccess(false);
             const data = await response.json();
             if (data.success === true) {
