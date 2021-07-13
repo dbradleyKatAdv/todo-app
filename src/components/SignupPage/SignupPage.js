@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import SignupForm from "../Form/SignupForm";
+import {Link} from "react-router-dom";
 
 function SignupPage () {
     const [firstNameInput, setFirstNameInput] = useState("");
@@ -80,6 +81,7 @@ function SignupPage () {
                 passwordInput={passwordInput}
                 emailInput={emailInput}
             />
+            <Link to="/">Signup</Link>
         </Fragment>
     )
 }

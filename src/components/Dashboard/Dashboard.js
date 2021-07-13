@@ -1,8 +1,11 @@
-import React, { useEffect, Fragment } from "react";
-import TodoCard from "./../Card/TodoCard.js";
+import React, { useEffect, useState, Fragment } from "react";
+import TodoCard from "../Card/TodoCard.js";
 import NoData from "./NoData.js";
+import TodoHeader from "../Header/TodoHeader.js";
 
 function UserTodoPage() {
+    const [userInput, setUserInput] = useState("");
+    const [userTodo, setUserTodo] = useState([]);
     const [sendTodoSuccess, setSendTodoSuccess] = useState("");
     const [getTodoSuccess, setGetTodoSuccess] = useState("");
 
@@ -83,7 +86,6 @@ function UserTodoPage() {
         setUserInput("");
     }
 
-
     useEffect(() => {
         return fetchData();
     }, [userTodo]);
@@ -99,9 +101,9 @@ function UserTodoPage() {
     } else if (userTodo.length > 0) {
         return (
             <Fragment>
-                <TodoHeader
+                <TodoHeader 
                     handleChange={handleChange}
-                    handleCreateSubmit={handleCreateSubmit}
+                    handleCreateSubmit={handleCreateSubmit} 
                     userInput={userInput}
                 />
                 <TodoCard
