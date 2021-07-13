@@ -17,18 +17,19 @@ createUser = async (req, res) => {
         }
 
         const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(user.password, salt);
+        newUser.password = await bcrypt.hash(newUser.password, salt);
 
-        user.save().then(() => {
+        newUser.save().then(() => {
             return res.status(200).json({
                 success: true,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                id: user._id
+                firstName: newUser.firstName,
+                lastName: newUser.lastName,
+                email: newUser.email,
+                id: newUser._id
             })
         })
     } catch (err) {
+        console.log(err)
         return res.status(400).json({
             err, 
             message: 'Error creating user'

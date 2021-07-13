@@ -28,6 +28,7 @@ function SignupPage () {
             };
 
             const response = await fetch("http://localhost:3001/api/users", requestOptions);
+            console.log(await response.json());
 
             if (!response.ok) return setCreateUserSuccess(false);
 
@@ -81,7 +82,7 @@ function SignupPage () {
                 passwordInput={passwordInput}
                 emailInput={emailInput}
             />
-            <Link to="/">Signup</Link>
+            <Link to="/">Login</Link>
         </Fragment>
     )
 }

@@ -14,8 +14,6 @@ import {
 function App() {
   const [userInput, setUserInput] = useState("");
   const [userTodo, setUserTodo] = useState([]);
-  // const [userSignedIn, setUserSignedIn] = useState(false);
-
  
   return (
     <div className="App">
