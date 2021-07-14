@@ -1,29 +1,54 @@
-const User = require('../models/login-model');
+// @route POST api/users/login
+// @desc Login user and return JWT token
+// @access Public
+const validateLoginInput = require('./../validator/login.js');
+const User = require("./../models/login-model.js");
 
-const validateUser = async (req, res) => {
-    try {
-        const body = req.body;
-        console.log(body.json())
-        const user = await User.findOne({ email: body.email });
-        console.log(user, "user", body, "body")
-
-        if (user) {
-            // check user password with hashed password stored in the database
-            const validPassword = await bcrypt.compare(body.password, user.password);
-
-            if (validPassword) {
-                res.status(200).json({ message: "Valid password" });
-            } else {
-                res.status(400).json({ error: "Invalid Password" });
-            }
-        } else {
-            res.status(401).json({ error: "User does not exist" });
-        }
-
-    } catch(err) {
-        res.status(400).json({ error: "User does not exist" });
+const login = (req, res) => {
+    // Form validation
+    const { errors, isValid } = validateLoginInput(req.body);
+    // Check validation
+    if (!isValid) {
+        return res.status(400).json(errors);
     }
+    const email = req.body.email;
+    const password = req.body.password;
+    // Find user by email
+    User.findOne({ email }).then(user => {
+        // Check if user exists
+        if (!user) {
+            return res.status(404).json({ emailnotfound: "Email not found" });
+        }
+        // Check password
+        bcrypt.compare(password, user.password).then(isMatch => {
+            if (isMatch) {
+                // User matched
+                // Create JWT Payload
+                const payload = {
+                    id: user.id,
+                    name: user.name
+                };
+                // Sign token
+                jwt.sign(
+                    payload,
+                    keys.secretOrKey,
+                    {
+                        expiresIn: 31556926 // 1 year in seconds
+                    },
+                    (err, token) => {
+                        res.json({
+                            success: true,
+                            token: "Bearer " + token
+                        });
+                    }
+                );
+            } else {
+                return res
+                    .status(400)
+                    .json({ passwordincorrect: "Password incorrect" });
+            }
+        });
+    });
 }
 
-
-module.exports = { validateUser }
+module.exports = {login}
